@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ImageViewer</class>
+ <widget class="QMainWindow" name="ImageViewer">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>576</width>
+    <height>388</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>ImageViewer</string>
+  </property>
+  <widget class="QWidget" name="centralWidget"/>
+  <widget class="QStatusBar" name="statusBar"/>
+  <widget class="QToolBar" name="toolBar">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <property name="toolButtonStyle">
+    <enum>Qt::ToolButtonTextUnderIcon</enum>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>true</bool>
+   </attribute>
+   <addaction name="separator"/>
+   <addaction name="separator"/>
+   <addaction name="actionopen"/>
+   <addaction name="actionsave"/>
+   <addaction name="separator"/>
+   <addaction name="actionReset"/>
+   <addaction name="separator"/>
+  </widget>
+  <widget class="QToolBar" name="Edit_Toolbar">
+   <property name="windowTitle">
+    <string>toolBar_2</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+   <property name="toolButtonStyle">
+    <enum>Qt::ToolButtonTextUnderIcon</enum>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>BottomToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>true</bool>
+   </attribute>
+   <addaction name="actionZoom_In"/>
+   <addaction name="separator"/>
+   <addaction name="actionZoom_Out"/>
+   <addaction name="separator"/>
+   <addaction name="actioncrop"/>
+   <addaction name="separator"/>
+   <addaction name="actionselect"/>
+  </widget>
+  <action name="actionsave">
+   <property name="icon">
+    <iconset resource="res/images.qrc">
+     <normaloff>:/save.png</normaloff>:/save.png</iconset>
+   </property>
+   <property name="text">
+    <string>save</string>
+   </property>
+   <property name="toolTip">
+    <string>save</string>
+   </property>
+  </action>
+  <action name="actionReset">
+   <property name="icon">
+    <iconset resource="res/images.qrc">
+     <normaloff>:/reset.jpg</normaloff>:/reset.jpg</iconset>
+   </property>
+   <property name="text">
+    <string>Reset</string>
+   </property>
+   <property name="toolTip">
+    <string>Reset Image</string>
+   </property>
+  </action>
+  <action name="actionZoom_In">
+   <property name="icon">
+    <iconset resource="res/images.qrc">
+     <normaloff>:/zoomIn.png</normaloff>:/zoomIn.png</iconset>
+   </property>
+   <property name="text">
+    <string>Zoom In</string>
+   </property>
+   <property name="toolTip">
+    <string>Zoom In</string>
+   </property>
+  </action>
+  <action name="actionZoom_Out">
+   <property name="icon">
+    <iconset resource="res/images.qrc">
+     <normaloff>:/zoomOut.png</normaloff>:/zoomOut.png</iconset>
+   </property>
+   <property name="text">
+    <string>Zoom Out</string>
+   </property>
+   <property name="toolTip">
+    <string>Zoom Out</string>
+   </property>
+  </action>
+  <action name="actioncrop">
+   <property name="icon">
+    <iconset resource="res/images.qrc">
+     <normaloff>:/crop.png</normaloff>:/crop.png</iconset>
+   </property>
+   <property name="text">
+    <string>crop</string>
+   </property>
+   <property name="toolTip">
+    <string>crop</string>
+   </property>
+  </action>
+  <action name="actionopen">
+   <property name="icon">
+    <iconset resource="res/images.qrc">
+     <normaloff>:/open.png</normaloff>:/open.png</iconset>
+   </property>
+   <property name="text">
+    <string>open</string>
+   </property>
+   <property name="toolTip">
+    <string>open</string>
+   </property>
+  </action>
+  <action name="actionselect">
+   <property name="icon">
+    <iconset resource="res/images.qrc">
+     <normaloff>:/select.png</normaloff>:/select.png</iconset>
+   </property>
+   <property name="text">
+    <string>select</string>
+   </property>
+   <property name="toolTip">
+    <string>select</string>
+   </property>
+  </action>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources>
+  <include location="res/images.qrc"/>
+ </resources>
+ <connections/>
+</ui>
