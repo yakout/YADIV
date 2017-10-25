@@ -8,5 +8,6 @@
         <file>open.png</file>
         <file>background.png</file>
         <file>select.png</file>
+        <file>about.png</file>
     </qresource>
 </RCC>
