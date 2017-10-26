@@ -21,12 +21,8 @@ class ImageViewer : public QMainWindow
 {
     Q_OBJECT
 
-
 public slots:
-
     //void openFile();
-
-
 
 public:
     explicit ImageViewer(QWidget *parent = 0);
@@ -40,10 +36,11 @@ private slots:
     void on_actionZoom_In_triggered();
     void on_actionZoom_Out_triggered();
     void on_actionabout_triggered();
+    void on_actionrotate_triggered();
 
 
 private:
-    Ui::ImageViewer *ui;
+     Ui::ImageViewer *ui;
 
      double scaleFactor;
      QImage image;

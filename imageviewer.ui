@@ -84,22 +84,28 @@
      <normaloff>:/save.png</normaloff>:/save.png</iconset>
    </property>
    <property name="text">
-    <string>save</string>
+    <string>Save</string>
    </property>
    <property name="toolTip">
     <string>save</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
    </property>
   </action>
   <action name="actionReset">
    <property name="icon">
     <iconset resource="res/images.qrc">
-     <normaloff>:/reset.jpg</normaloff>:/reset.jpg</iconset>
+     <normaloff>:/reset.png</normaloff>:/reset.png</iconset>
    </property>
    <property name="text">
     <string>Reset</string>
    </property>
    <property name="toolTip">
     <string>Reset Image</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+R</string>
    </property>
   </action>
   <action name="actionZoom_In">
@@ -113,6 +119,9 @@
    <property name="toolTip">
     <string>Zoom In</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+=</string>
+   </property>
   </action>
   <action name="actionZoom_Out">
    <property name="icon">
@@ -124,6 +133,9 @@
    </property>
    <property name="toolTip">
     <string>Zoom Out</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+-</string>
    </property>
   </action>
   <action name="actioncrop">
@@ -137,6 +149,9 @@
    <property name="toolTip">
     <string>crop</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+C</string>
+   </property>
   </action>
   <action name="actionopen">
    <property name="icon">
@@ -148,6 +163,9 @@
    </property>
    <property name="toolTip">
     <string>open</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
    </property>
   </action>
   <action name="actionselect">
@@ -161,6 +179,9 @@
    <property name="toolTip">
     <string>select</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
+   </property>
   </action>
   <action name="actionabout">
    <property name="icon">
@@ -172,6 +193,27 @@
    </property>
    <property name="toolTip">
     <string>About</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+A</string>
+   </property>
+  </action>
+  <action name="actionrotate">
+   <property name="icon">
+    <iconset>
+     <normaloff>res/rotate.png</normaloff>res/rotate.png</iconset>
+   </property>
+   <property name="text">
+    <string>Rotate</string>
+   </property>
+   <property name="toolTip">
+    <string>rotate</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+R</string>
+   </property>
+   <property name="iconVisibleInMenu">
+    <bool>false</bool>
    </property>
   </action>
  </widget>

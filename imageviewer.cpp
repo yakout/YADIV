@@ -31,7 +31,7 @@ ImageViewer::~ImageViewer()
 void ImageViewer::on_actionopen_triggered()
 {
     QString fileName = QFileDialog::getOpenFileName(this,
-           tr("Choose image to view"),"",tr("Images (*.png *.jpg *.jpeg"));
+           tr("Choose image to view"),"",tr("Images (*.png *.jpg *.jpeg *.bmp"));
     bool canLoad;
     if (QString ::compare(fileName,QString()) !=0){
          canLoad = image.load(fileName);
@@ -84,4 +84,14 @@ void ImageViewer::on_actionabout_triggered()
     QMessageBox::about(this, tr("About Image Viewer"),
                tr("<p>The <b>Image Viewer</b> is an image editor written in Qt C++ that "
                "enables the user to view and modify images in different formats .</p>"));
+}
+
+
+void ImageViewer::on_actionrotate_triggered()
+{
+    QPixmap pixmap(*imageLabel->pixmap());
+    QMatrix rm;
+    rm.rotate(90);
+    pixmap = pixmap.transformed(rm);
+    imageLabel->setPixmap(pixmap);
 }
