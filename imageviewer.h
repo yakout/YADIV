@@ -9,6 +9,9 @@ class QPushButton;
 class QLabel;
 class QLineEdit;
 class QTextEdit;
+class QScrollArea;
+class QScrollBar;
+
 
 namespace Ui {
 class ImageViewer;
@@ -38,9 +41,14 @@ private slots:
     void on_actionZoom_Out_triggered();
     void on_actionabout_triggered();
 
+
 private:
     Ui::ImageViewer *ui;
-     QPushButton *addButton;
+
+     double scaleFactor;
+     QImage image;
+     QScrollArea *scrollArea;
+     QLabel *imageLabel;
 };
 
 #endif // IMAGEVIEWER_H

@@ -20,9 +20,21 @@ ImageViewer::~ImageViewer()
 void ImageViewer::on_actionopen_triggered()
 {
     QString fileName = QFileDialog::getOpenFileName(this,
-           tr("Choose image to view"), "",
-           tr("Address Book (*.abk);;All Files (*)"));
-    //a comment
+           tr("Choose image to view"),"",tr("Images (*.png *.jpg *.jpeg"));
+    bool canLoad;
+    if (QString ::compare(fileName,QString()) !=0){
+         canLoad = image.load(fileName);
+
+    }
+    if (canLoad){
+        ui->ImageLabel->setPixmap(QPixmap::fromImage(image));
+
+    }
+    else {
+        QMessageBox::about(this, tr("Error Loading Image"),
+                   tr("<p>Image corrupted or unsupported format</p>"));
+    }
+
 }
 
 void ImageViewer::on_actionsave_triggered()
