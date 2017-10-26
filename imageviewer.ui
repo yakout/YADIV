@@ -43,11 +43,12 @@
     <bool>false</bool>
    </attribute>
    <addaction name="separator"/>
-   <addaction name="separator"/>
    <addaction name="actionopen"/>
+   <addaction name="separator"/>
    <addaction name="actionsave"/>
    <addaction name="separator"/>
    <addaction name="actionReset"/>
+   <addaction name="separator"/>
    <addaction name="separator"/>
   </widget>
   <widget class="QToolBar" name="Edit_Toolbar">
