@@ -24,14 +24,18 @@ ImageViewer::ImageViewer(QWidget *parent)
     image.load(":/default.jpg");
     QGraphicsPixmapItem* item = new QGraphicsPixmapItem(QPixmap::fromImage(image));
     QGraphicsScene *scene = new QGraphicsScene();
+    item->scale();
     scene->addItem(item);
     ui->graphicsView->setScene(scene);
+    ui->graphicsView->show();
+    ui->graphicsView->resize(100,100);
 
 //    connect(ui->rotateSlider, SIGNAL(valueChanged(int)),
 //                ui->angleSpinBox, SLOT(setValue(int)));
 
 //    connect(ui->actionrotate, SIGNAL(toggled(bool)),
 //                ui->rotateSlider, SLOT(setVisible(bool)));
+    resize(QGuiApplication::primaryScreen()->availableSize() * 4 / 5);
 }
 
 ImageViewer::~ImageViewer()
@@ -77,21 +81,24 @@ void ImageViewer::on_actionReset_triggered()
 
 void ImageViewer::on_actionZoom_In_triggered()
 {
-   //image = image.scaled(image.size().width()*2,image.size().height()*2);
+    ui->graphicsView->scale(2,2);   //zoom in
+
+//    image = image.scaled(image.size().width()*2,image.size().height()*2);
 //    QSize sizoo = ui->ImageLabel->size()*2;
-//   ui->ImageLabel->resize(sizoo);
-    //ui->ImageLabel->setPixmap(QPixmap::fromImage(image));
+//    ui->ImageLabel->resize(sizoo);
+//    ui->ImageLabel->setPixmap(QPixmap::fromImage(image));
 }
 
 void ImageViewer::on_actionZoom_Out_triggered()
 {
-    //image = image.scaled(image.size().width()/2,image.size().height()/2);
-  // sizoo = image.size();
+    ui->graphicsView->scale(.5,.5); //zoom out
+//    image = image.scaled(image.size().width()/2,image.size().height()/2);
+//    sizoo = image.size();
 //    if(ui->ImageLabel !=NULL){
 //        ui->ImageLabel->resize(ui->ImageLabel->size()/2);
-//   } //printf("%d %d\n",sizoo.height(),sizoo.width());
-//ui->ImageLabel->setPixmap(QPixmap::fromImage(image));
-//return;
+//    } //printf("%d %d\n",sizoo.height(),sizoo.width());
+//    ui->ImageLabel->setPixmap(QPixmap::fromImage(image));
+//    return;
 }
 
 void ImageViewer::on_actionabout_triggered()
