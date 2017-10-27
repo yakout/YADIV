@@ -10,5 +10,6 @@
         <file>about.png</file>
         <file>rotate.png</file>
         <file>reset.png</file>
+        <file>default.jpg</file>
     </qresource>
 </RCC>

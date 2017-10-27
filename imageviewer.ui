@@ -14,19 +14,69 @@
    <string>ImageViewer</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QLabel" name="ImageLabel">
-    <property name="geometry">
-     <rect>
-      <x>90</x>
-      <y>20</y>
-      <width>581</width>
-      <height>341</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QGraphicsView" name="graphicsView">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QDoubleSpinBox" name="angleSpinBox">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="minimum">
+         <double>-180.000000000000000</double>
+        </property>
+        <property name="maximum">
+         <double>180.000000000000000</double>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QSlider" name="rotateSlider">
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
+        <property name="layoutDirection">
+         <enum>Qt::LeftToRight</enum>
+        </property>
+        <property name="autoFillBackground">
+         <bool>false</bool>
+        </property>
+        <property name="minimum">
+         <number>-180</number>
+        </property>
+        <property name="maximum">
+         <number>180</number>
+        </property>
+        <property name="tracking">
+         <bool>true</bool>
+        </property>
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="invertedAppearance">
+         <bool>false</bool>
+        </property>
+        <property name="invertedControls">
+         <bool>false</bool>
+        </property>
+        <property name="tickPosition">
+         <enum>QSlider::TicksBothSides</enum>
+        </property>
+        <property name="tickInterval">
+         <number>5</number>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <widget class="QToolBar" name="toolBar">
@@ -73,6 +123,8 @@
    <addaction name="separator"/>
    <addaction name="actioncrop"/>
    <addaction name="separator"/>
+   <addaction name="actionrotate"/>
+   <addaction name="separator"/>
    <addaction name="actionselect"/>
    <addaction name="separator"/>
    <addaction name="actionabout"/>
@@ -80,7 +132,7 @@
   </widget>
   <action name="actionsave">
    <property name="icon">
-    <iconset resource="res/images.qrc">
+    <iconset>
      <normaloff>:/save.png</normaloff>:/save.png</iconset>
    </property>
    <property name="text">
@@ -95,7 +147,7 @@
   </action>
   <action name="actionReset">
    <property name="icon">
-    <iconset resource="res/images.qrc">
+    <iconset>
      <normaloff>:/reset.png</normaloff>:/reset.png</iconset>
    </property>
    <property name="text">
@@ -110,7 +162,7 @@
   </action>
   <action name="actionZoom_In">
    <property name="icon">
-    <iconset resource="res/images.qrc">
+    <iconset>
      <normaloff>:/zoomIn.png</normaloff>:/zoomIn.png</iconset>
    </property>
    <property name="text">
@@ -125,7 +177,7 @@
   </action>
   <action name="actionZoom_Out">
    <property name="icon">
-    <iconset resource="res/images.qrc">
+    <iconset>
      <normaloff>:/zoomOut.png</normaloff>:/zoomOut.png</iconset>
    </property>
    <property name="text">
@@ -140,7 +192,7 @@
   </action>
   <action name="actioncrop">
    <property name="icon">
-    <iconset resource="res/images.qrc">
+    <iconset>
      <normaloff>:/crop.png</normaloff>:/crop.png</iconset>
    </property>
    <property name="text">
@@ -155,7 +207,7 @@
   </action>
   <action name="actionopen">
    <property name="icon">
-    <iconset resource="res/images.qrc">
+    <iconset>
      <normaloff>:/open.png</normaloff>:/open.png</iconset>
    </property>
    <property name="text">
@@ -170,7 +222,7 @@
   </action>
   <action name="actionselect">
    <property name="icon">
-    <iconset resource="res/images.qrc">
+    <iconset>
      <normaloff>:/select.png</normaloff>:/select.png</iconset>
    </property>
    <property name="text">
@@ -185,7 +237,7 @@
   </action>
   <action name="actionabout">
    <property name="icon">
-    <iconset resource="res/images.qrc">
+    <iconset>
      <normaloff>:/about.png</normaloff>:/about.png</iconset>
    </property>
    <property name="text">
@@ -201,7 +253,7 @@
   <action name="actionrotate">
    <property name="icon">
     <iconset>
-     <normaloff>res/rotate.png</normaloff>res/rotate.png</iconset>
+     <normaloff>:/rotate.png</normaloff>:/rotate.png</iconset>
    </property>
    <property name="text">
     <string>Rotate</string>
@@ -218,8 +270,6 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources>
-  <include location="res/images.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

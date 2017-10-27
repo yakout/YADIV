@@ -3,14 +3,17 @@
 
 #include <QMainWindow>
 #include <QWidget>
-#include <QMap>
-
-class QPushButton;
-class QLabel;
-class QLineEdit;
-class QTextEdit;
-class QScrollArea;
-class QScrollBar;
+#include <QSlider>
+#include <QSpinBox>
+#include <QtGui>
+#include <QMessageBox>
+#include <QFileDialog>
+#include <QDebug>
+#include <QGraphicsPixmapItem>
+#include <iostream>
+#include <QTransform>
+#include <QImage>
+#include <QScrollArea>
 
 
 namespace Ui {
@@ -37,15 +40,11 @@ private slots:
     void on_actionZoom_Out_triggered();
     void on_actionabout_triggered();
     void on_actionrotate_triggered();
-
+    void on_rotateSlider_valueChanged(int value);
 
 private:
      Ui::ImageViewer *ui;
-
-     double scaleFactor;
      QImage image;
-     QScrollArea *scrollArea;
-     QLabel *imageLabel;
 };
 
 #endif // IMAGEVIEWER_H
