@@ -75,7 +75,7 @@ void ImageViewer::on_actionsave_triggered()
 }
 
 void ImageViewer::select_area() {
-    qDebug() <<ui->graphicsView->get_selected() << "\n";
+    // qDebug() <<ui->graphicsView->get_selected() << "\n";
     ui->graphicsView->select();
 }
 

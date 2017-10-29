@@ -7,12 +7,15 @@
 #include <QMouseEvent>
 #include <QRect>
 #include <QRubberBand>
+#include <QDebug>
+#include <cstdlib>
+
 class QGraphicsViewn : public QGraphicsView
 {
     Q_OBJECT
 private:
     QPoint press,release;
-     QRubberBand *rubber_band;
+    QRubberBand *rubber_band;
 public:
     explicit QGraphicsViewn(QWidget *parent = nullptr);
     QRect get_selected();
@@ -27,6 +30,7 @@ public slots:
 protected slots:
     void mousePressEvent(QMouseEvent * event);
     void mouseReleaseEvent(QMouseEvent * event);
+    void mouseMoveEvent(QMouseEvent * event);
 };
 
 #endif // QGRAPHICSVIEWN_H
