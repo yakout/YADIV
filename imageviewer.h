@@ -45,7 +45,6 @@ private slots:
     void on_rotateSlider_valueChanged(int value);
     void load_image();
 
-
 private:
      Ui::ImageViewer *ui;
      QImage image;

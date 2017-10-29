@@ -55,10 +55,9 @@ void ImageViewer::on_actionopen_triggered()
 {
     QString fileName = QFileDialog::getOpenFileName(this,
            tr("Choose image to view"),"",tr("Images (*.png *.jpg *.jpeg *.bmp"));
-    bool canLoad;
-    if (QString ::compare(fileName,QString()) !=0) {
+    bool canLoad = false;
+    if (QString ::compare(fileName,QString()) != 0) {
         canLoad = image.load(fileName);
-
     }
     if (canLoad) {
         default_image = image.copy(0,0,image.size().width(),image.size().height());
@@ -72,14 +71,14 @@ void ImageViewer::on_actionopen_triggered()
 
 void ImageViewer::on_actionsave_triggered()
 {
-
+    // TODO
 }
 
-void ImageViewer::select_area(){
-qDebug() <<ui->graphicsView->get_selected() << "\n";
-ui->graphicsView->select();
-
+void ImageViewer::select_area() {
+    qDebug() <<ui->graphicsView->get_selected() << "\n";
+    ui->graphicsView->select();
 }
+
 void ImageViewer::on_actionReset_triggered()
 {
     ui->graphicsView->unselect();
