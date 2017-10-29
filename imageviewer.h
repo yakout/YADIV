@@ -26,10 +26,12 @@ class ImageViewer : public QMainWindow
 
 public slots:
     //void openFile();
+    void select_area();
 
 public:
     explicit ImageViewer(QWidget *parent = 0);
     ~ImageViewer();
+
 
 private slots:
 
@@ -41,10 +43,13 @@ private slots:
     void on_actionabout_triggered();
     void on_actionrotate_triggered();
     void on_rotateSlider_valueChanged(int value);
+    void load_image();
+
 
 private:
      Ui::ImageViewer *ui;
      QImage image;
+     QImage default_image;
 };
 
 #endif // IMAGEVIEWER_H

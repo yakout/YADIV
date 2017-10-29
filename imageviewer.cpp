@@ -2,10 +2,6 @@
 #include "ui_imageviewer.h"
 
 
-QSize sizoo;
-QAction *fitToWindowAct;
-bool fittw;
-
 
 // void ImageViewer::fitToWindow()
 // {
@@ -22,6 +18,7 @@ ImageViewer::ImageViewer(QWidget *parent)
     ui->rotateSlider->setVisible(false);
     ui->angleSpinBox->setVisible(false);
     image.load(":/default.jpg");
+    default_image = image.copy(0,0,image.size().width(),image.size().height());
     QGraphicsPixmapItem* item = new QGraphicsPixmapItem(QPixmap::fromImage(image));
     QGraphicsScene *scene = new QGraphicsScene();
     item->scale();
@@ -35,6 +32,9 @@ ImageViewer::ImageViewer(QWidget *parent)
 
 //    connect(ui->actionrotate, SIGNAL(toggled(bool)),
 //                ui->rotateSlider, SLOT(setVisible(bool)));
+
+    QWidget::connect (ui->graphicsView, SIGNAL(area_selected()),
+                      this, SLOT(select_area()));
     resize(QGuiApplication::primaryScreen()->availableSize() * 4 / 5);
 }
 
@@ -43,7 +43,14 @@ ImageViewer::~ImageViewer()
     delete ui;
 }
 
-
+void ImageViewer::load_image() {
+    QGraphicsPixmapItem* item = new QGraphicsPixmapItem(QPixmap::fromImage(image));
+    QGraphicsScene *scene = new QGraphicsScene();
+    item->scale();
+    scene->addItem(item);
+    ui->graphicsView->setScene(scene);
+    ui->graphicsView->show();
+}
 void ImageViewer::on_actionopen_triggered()
 {
     QString fileName = QFileDialog::getOpenFileName(this,
@@ -51,17 +58,11 @@ void ImageViewer::on_actionopen_triggered()
     bool canLoad;
     if (QString ::compare(fileName,QString()) !=0) {
         canLoad = image.load(fileName);
+
     }
     if (canLoad) {
-//        ui->ImageLabel->setPixmap(QPixmap::fromImage(image));
-//        sizoo = image.size();
-
-        // using graphics view
-        QGraphicsPixmapItem* item = new QGraphicsPixmapItem(QPixmap::fromImage(image));
-        QGraphicsScene *scene = new QGraphicsScene();
-        scene->addItem(item);
-        ui->graphicsView->setScene(scene);
-        ui->graphicsView->show();
+        default_image = image.copy(0,0,image.size().width(),image.size().height());
+        this->load_image();
         //
     } else {
         QMessageBox::about(this, tr("Error Loading Image"),
@@ -74,31 +75,35 @@ void ImageViewer::on_actionsave_triggered()
 
 }
 
+void ImageViewer::select_area(){
+qDebug() <<ui->graphicsView->get_selected() << "\n";
+ui->graphicsView->select();
+
+}
 void ImageViewer::on_actionReset_triggered()
 {
+    ui->graphicsView->unselect();
+    image = default_image.copy(0,0,default_image.size().width(),default_image.size().height());
+    this->load_image();
 
+    ui->rotateSlider->setVisible(false);
+    ui->rotateSlider->setValue(0);
+    ui->angleSpinBox->setVisible(false);
 }
 
 void ImageViewer::on_actionZoom_In_triggered()
 {
+
+    ui->graphicsView->unselect();
     ui->graphicsView->scale(2,2);   //zoom in
 
-//    image = image.scaled(image.size().width()*2,image.size().height()*2);
-//    QSize sizoo = ui->ImageLabel->size()*2;
-//    ui->ImageLabel->resize(sizoo);
-//    ui->ImageLabel->setPixmap(QPixmap::fromImage(image));
 }
 
 void ImageViewer::on_actionZoom_Out_triggered()
 {
+
+    ui->graphicsView->unselect();
     ui->graphicsView->scale(.5,.5); //zoom out
-//    image = image.scaled(image.size().width()/2,image.size().height()/2);
-//    sizoo = image.size();
-//    if(ui->ImageLabel !=NULL){
-//        ui->ImageLabel->resize(ui->ImageLabel->size()/2);
-//    } //printf("%d %d\n",sizoo.height(),sizoo.width());
-//    ui->ImageLabel->setPixmap(QPixmap::fromImage(image));
-//    return;
 }
 
 void ImageViewer::on_actionabout_triggered()
@@ -110,6 +115,8 @@ void ImageViewer::on_actionabout_triggered()
 
 void ImageViewer::on_actionrotate_triggered()
 {
+
+    ui->graphicsView->unselect();
     ui->rotateSlider->setVisible(!ui->rotateSlider->isVisible());
     ui->angleSpinBox->setVisible(!ui->angleSpinBox->isVisible());
 }
@@ -117,6 +124,8 @@ void ImageViewer::on_actionrotate_triggered()
 void ImageViewer::on_rotateSlider_valueChanged(int value)
 {
 //    qInfo() << value << "\n";
+
+    ui->graphicsView->unselect();
     ui->angleSpinBox->setValue(value);
     QMatrix rm;
     rm.rotate(value);

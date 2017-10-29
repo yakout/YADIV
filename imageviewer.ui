@@ -16,7 +16,7 @@
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
-     <widget class="QGraphicsView" name="graphicsView">
+     <widget class="QGraphicsViewn" name="graphicsView">
       <property name="enabled">
        <bool>true</bool>
       </property>
@@ -132,7 +132,7 @@
   </widget>
   <action name="actionsave">
    <property name="icon">
-    <iconset>
+    <iconset resource="res/images.qrc">
      <normaloff>:/save.png</normaloff>:/save.png</iconset>
    </property>
    <property name="text">
@@ -147,7 +147,7 @@
   </action>
   <action name="actionReset">
    <property name="icon">
-    <iconset>
+    <iconset resource="res/images.qrc">
      <normaloff>:/reset.png</normaloff>:/reset.png</iconset>
    </property>
    <property name="text">
@@ -162,7 +162,7 @@
   </action>
   <action name="actionZoom_In">
    <property name="icon">
-    <iconset>
+    <iconset resource="res/images.qrc">
      <normaloff>:/zoomIn.png</normaloff>:/zoomIn.png</iconset>
    </property>
    <property name="text">
@@ -177,7 +177,7 @@
   </action>
   <action name="actionZoom_Out">
    <property name="icon">
-    <iconset>
+    <iconset resource="res/images.qrc">
      <normaloff>:/zoomOut.png</normaloff>:/zoomOut.png</iconset>
    </property>
    <property name="text">
@@ -192,7 +192,7 @@
   </action>
   <action name="actioncrop">
    <property name="icon">
-    <iconset>
+    <iconset resource="res/images.qrc">
      <normaloff>:/crop.png</normaloff>:/crop.png</iconset>
    </property>
    <property name="text">
@@ -207,7 +207,7 @@
   </action>
   <action name="actionopen">
    <property name="icon">
-    <iconset>
+    <iconset resource="res/images.qrc">
      <normaloff>:/open.png</normaloff>:/open.png</iconset>
    </property>
    <property name="text">
@@ -222,7 +222,7 @@
   </action>
   <action name="actionselect">
    <property name="icon">
-    <iconset>
+    <iconset resource="res/images.qrc">
      <normaloff>:/select.png</normaloff>:/select.png</iconset>
    </property>
    <property name="text">
@@ -237,7 +237,7 @@
   </action>
   <action name="actionabout">
    <property name="icon">
-    <iconset>
+    <iconset resource="res/images.qrc">
      <normaloff>:/about.png</normaloff>:/about.png</iconset>
    </property>
    <property name="text">
@@ -252,7 +252,7 @@
   </action>
   <action name="actionrotate">
    <property name="icon">
-    <iconset>
+    <iconset resource="res/images.qrc">
      <normaloff>:/rotate.png</normaloff>:/rotate.png</iconset>
    </property>
    <property name="text">
@@ -270,6 +270,15 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <customwidgets>
+  <customwidget>
+   <class>QGraphicsViewn</class>
+   <extends>QGraphicsView</extends>
+   <header location="global">qgraphicsviewn.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources>
+  <include location="res/images.qrc"/>
+ </resources>
  <connections/>
 </ui>
