@@ -44,6 +44,7 @@ private slots:
     void on_actionrotate_triggered();
     void on_rotateSlider_valueChanged(int value);
     void load_image();
+    void on_actioncrop_triggered();
 
 private:
      Ui::ImageViewer *ui;

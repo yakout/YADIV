@@ -18,7 +18,7 @@ private:
     QRubberBand *rubber_band;
 public:
     explicit QGraphicsViewn(QWidget *parent = nullptr);
-    QRect get_selected();
+    QRect* get_selected();
 
 signals:
     void area_selected();

@@ -18,7 +18,7 @@ void QGraphicsViewn::mousePressEvent(QMouseEvent * event)
     press.setY(max(press.y(),0));
 }
 
-QRect QGraphicsViewn::get_selected()
+QRect* QGraphicsViewn::get_selected()
 {
     QPoint start,end;
     start.setX(min(press.x(),release.x()));
@@ -26,11 +26,11 @@ QRect QGraphicsViewn::get_selected()
     end.setX(max(press.x(),release.x()));
     end.setY(max(press.y(),release.y()));
 
-    QRect ret;
-    ret.setX(start.x());
-    ret.setY(start.y());
-    ret.setWidth(end.x()-start.x());
-    ret.setHeight(end.y()-start.y());
+    QRect *ret= new QRect();
+    ret->setX(start.x());
+    ret->setY(start.y());
+    ret->setWidth(end.x()-start.x());
+    ret->setHeight(end.y()-start.y());
     return ret;
 }
 
@@ -61,7 +61,7 @@ void QGraphicsViewn::mouseMoveEvent(QMouseEvent * event) {
 void QGraphicsViewn::select() {
     if (!rubber_band)
            rubber_band = new QRubberBand(QRubberBand::Rectangle, this);
-       rubber_band->setGeometry(get_selected());
+       rubber_band->setGeometry(*get_selected());
        rubber_band->show();
 }
 void QGraphicsViewn::unselect() {
