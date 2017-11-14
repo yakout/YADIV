@@ -73,7 +73,6 @@ void ImageViewer::updatePixmap() {
 
     ui->graphicsView->scene()->items();
     ui->graphicsView->setScene(scene);
-//    ui->graphicsView->scene()->update();
     ui->graphicsView->show();
 }
 
@@ -113,6 +112,7 @@ void ImageViewer::select_area()
 void ImageViewer::on_actionReset_triggered()
 {
     ui->graphicsView->unselect();
+    image->reset();
     image->setQImage(image->getOriginalQImage()->copy());
 
     this->load_image();
