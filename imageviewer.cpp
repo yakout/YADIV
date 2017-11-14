@@ -52,7 +52,7 @@ void ImageViewer::updatePixmap() {
     pixmap = QPixmap::fromImage(*image->getQImage());
 
     pixmap = pixmap.transformed(rm, Qt::SmoothTransformation);
-    if (image->getCropArea().width() != 0) {
+    if (image->getCropArea().width() != 0 && mode == CROP) {
         pixmap = pixmap.copy(image->getCropArea().x(),
                              image->getCropArea().y(),
                              image->getCropArea().width(),
@@ -70,8 +70,6 @@ void ImageViewer::updatePixmap() {
     QGraphicsScene *scene = new QGraphicsScene();
     item->scale();
     scene->addItem(item);
-
-    ui->graphicsView->scene()->items();
     ui->graphicsView->setScene(scene);
     ui->graphicsView->show();
 }
@@ -124,7 +122,6 @@ void ImageViewer::on_actionReset_triggered()
 
 void ImageViewer::on_actionZoom_In_triggered()
 {
-
     mode = ZOOM_IN;
     ui->graphicsView->unselect();
     ui->graphicsView->scale(2,2);   //zoom in
