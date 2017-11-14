@@ -26,11 +26,13 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         main.cpp \
         imageviewer.cpp \
-        qgraphicsviewn.cpp
+        qgraphicsviewn.cpp \
+    image.cpp
 
 HEADERS += \
         imageviewer.h \
-        qgraphicsviewn.h
+    image.h \
+    qgraphicsviewn.h
 
 FORMS += \
         imageviewer.ui

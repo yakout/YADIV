@@ -1,26 +1,32 @@
-#include "imageviewer.h"
-#include "ui_imageviewer.h"
 #include <QDebug>
 #include <QGraphicsView>
 #include <QRect>
+#include <QFile>
+#include <QIODevice>
+
+#include "imageviewer.h"
+#include "ui_imageviewer.h"
 
 ImageViewer::ImageViewer(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::ImageViewer)
 {
+    mode = NO_MODE;
     ui->setupUi(this);
     ui->rotateSlider->setVisible(false);
     ui->angleSpinBox->setVisible(false);
-    image.load(":/default.jpg");
-    default_image = image.copy(0,0,image.size().width(),image.size().height());
-    QGraphicsPixmapItem* item = new QGraphicsPixmapItem(QPixmap::fromImage(image));
-    QGraphicsScene *scene = new QGraphicsScene();
-    item->scale();
-    scene->addItem(item);
-    ui->graphicsView->setScene(scene);
-    ui->graphicsView->show();
-    ui->graphicsView->resize(100,100);
-   QWidget::connect (ui->graphicsView, SIGNAL(area_selected()),
+
+#ifdef QT_DEBUG
+    // only in development mode
+    image = new Image(":/default.jpg");
+    load_image();
+#endif
+
+//    pixmap = QPixmap::fromImage(*image->getQImage());
+//    updatePixmap();
+
+    ui->graphicsView->resize(100, 100);
+    QWidget::connect (ui->graphicsView, SIGNAL(area_selected()),
                       this, SLOT(select_area()));
     resize(QGuiApplication::primaryScreen()->availableSize() * 4 / 5);
 }
@@ -31,26 +37,58 @@ ImageViewer::~ImageViewer()
 }
 
 void ImageViewer::load_image() {
-    QGraphicsPixmapItem* item = new QGraphicsPixmapItem(QPixmap::fromImage(image));
+    QGraphicsPixmapItem *item = new QGraphicsPixmapItem(QPixmap::fromImage(*image->getQImage()));
     QGraphicsScene *scene = new QGraphicsScene();
     item->scale();
     scene->addItem(item);
     ui->graphicsView->setScene(scene);
     ui->graphicsView->show();
 }
+
+void ImageViewer::updatePixmap() {
+    QMatrix rm;
+    rm.rotate(image->getRotationAngle());
+
+    pixmap = QPixmap::fromImage(*image->getQImage());
+
+    pixmap = pixmap.transformed(rm, Qt::SmoothTransformation);
+    if (image->getCropArea().width() != 0) {
+        pixmap = pixmap.copy(image->getCropArea().x(),
+                             image->getCropArea().y(),
+                             image->getCropArea().width(),
+                             image->getCropArea().height());
+    }
+
+    image->setPixMap(pixmap);
+
+    qDebug() << mode << "\n";
+    if (mode == CROP) {
+        image->setQImage(pixmap.toImage().copy());
+    }
+
+    QGraphicsPixmapItem* item = new QGraphicsPixmapItem(pixmap);
+    QGraphicsScene *scene = new QGraphicsScene();
+    item->scale();
+    scene->addItem(item);
+
+    ui->graphicsView->scene()->items();
+    ui->graphicsView->setScene(scene);
+//    ui->graphicsView->scene()->update();
+    ui->graphicsView->show();
+}
+
 void ImageViewer::on_actionopen_triggered()
 {
     QString fileName = QFileDialog::getOpenFileName(this,
            tr("Choose image to view"),"",tr("Images (*.png *.jpg *.jpeg *.bmp"));
-    bool canLoad;
-    if (QString ::compare(fileName,QString()) !=0) {
-        canLoad = image.load(fileName);
-
+    bool canLoad = false;
+    if (QString ::compare(fileName, QString()) !=0) {
+        canLoad = image->getQImage()->load(fileName);
     }
     if (canLoad) {
-        default_image = image.copy(0,0,image.size().width(),image.size().height());
+        image->reset();
+        image->setOriginalQImage(image->getQImage()->copy());
         this->load_image();
-
     } else {
         QMessageBox::about(this, tr("Error Loading Image"),
                    tr("<p>Image corrupted or unsupported format</p>"));
@@ -61,19 +99,22 @@ void ImageViewer::on_actionsave_triggered()
 {
     QString fileName = QFileDialog::getSaveFileName(this,
            tr("Choose image to view"),"",tr("Images (*.png *.jpg *.jpeg *.bmp"));
-    image.save(fileName);
+    qDebug() << fileName << "\n";
+//    image->getQImage()->save(fileName);
+    image->saveImage(fileName);
 
 }
 
-void ImageViewer::select_area(){
+void ImageViewer::select_area()
+{
     ui->graphicsView->select();
-
-
 }
+
 void ImageViewer::on_actionReset_triggered()
 {
     ui->graphicsView->unselect();
-    image = default_image.copy(0,0,default_image.size().width(),default_image.size().height());
+    image->setQImage(image->getOriginalQImage()->copy());
+
     this->load_image();
 
     ui->rotateSlider->setVisible(false);
@@ -84,6 +125,7 @@ void ImageViewer::on_actionReset_triggered()
 void ImageViewer::on_actionZoom_In_triggered()
 {
 
+    mode = ZOOM_IN;
     ui->graphicsView->unselect();
     ui->graphicsView->scale(2,2);   //zoom in
 
@@ -91,7 +133,7 @@ void ImageViewer::on_actionZoom_In_triggered()
 
 void ImageViewer::on_actionZoom_Out_triggered()
 {
-
+    mode = ZOOM_OUT;
     ui->graphicsView->unselect();
     ui->graphicsView->scale(.5,.5); //zoom out
 }
@@ -105,7 +147,6 @@ void ImageViewer::on_actionabout_triggered()
 
 void ImageViewer::on_actionrotate_triggered()
 {
-
     ui->graphicsView->unselect();
     ui->rotateSlider->setVisible(!ui->rotateSlider->isVisible());
     ui->angleSpinBox->setVisible(!ui->angleSpinBox->isVisible());
@@ -113,44 +154,34 @@ void ImageViewer::on_actionrotate_triggered()
 
 void ImageViewer::on_rotateSlider_valueChanged(int value)
 {
-//    qInfo() << value << "\n";
-
+    mode = ROTATE;
     ui->graphicsView->unselect();
     ui->angleSpinBox->setValue(value);
-    QMatrix rm;
-    rm.rotate(value);
-    QPixmap pixmap = QPixmap::fromImage(image);
-    pixmap = pixmap.transformed(rm, Qt::SmoothTransformation).copy();
-    QGraphicsPixmapItem* item = new QGraphicsPixmapItem(pixmap);
-    QGraphicsScene *scene = new QGraphicsScene();
-    scene->addItem(item);
-    ui->graphicsView->setScene(scene);
+    image->setRotationAngle(value);
+    updatePixmap();
 }
-
 
 
 void ImageViewer::on_actioncrop_triggered()
 {
+    mode = CROP;
     QRect *area = ui->graphicsView->get_selected();
-    qDebug() << area->x() << " "<<area->y();
+    if(area->width() == 0)
+        return;
 
-    QPointF temp =  ui->graphicsView->mapToScene( *(new QPoint(area->x(),area->y())) );
-    QPointF temp2 =  ui->graphicsView->mapToScene( *(new QPoint(area->x()+area->width()
-                                                               ,area->y()+area->height())) );
-    qDebug() << temp << " "<<temp2;
-    area->setX( temp.x());
-    area->setY( temp.y());
+    QPointF temp = ui->graphicsView->mapToScene( *(new QPoint(area->x(),area->y())) );
+    QPointF temp2 = ui->graphicsView->mapToScene( *(new QPoint(area->x()+area->width()
+                                                               ,area->y()+area->height())));
+
+    area->setX(temp.x());
+    area->setY(temp.y());
     area->setWidth(temp2.x()-temp.x());
-
     area->setHeight(temp2.y()-temp.y());
 
-    if(!area)
-        return;
-    image = image.copy(*area);
-    this->load_image();
+    image->setCropArea(*area);
+    updatePixmap();
 
     ui->rotateSlider->setVisible(false);
-    ui->rotateSlider->setValue(0);
     ui->angleSpinBox->setVisible(false);
     ui->graphicsView->unselect();
 }

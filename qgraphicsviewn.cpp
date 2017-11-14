@@ -31,6 +31,7 @@ QRect* QGraphicsViewn::get_selected()
     ret->setY(start.y());
     ret->setWidth(end.x()-start.x());
     ret->setHeight(end.y()-start.y());
+
     return ret;
 }
 
@@ -69,5 +70,12 @@ void QGraphicsViewn::unselect() {
         return;
     rubber_band->hide();
           delete rubber_band;
-    rubber_band = NULL;
+
+    press.setX(0);
+    press.setY(0);
+    release.setX(0);
+    release.setY(0);
+
+    rubber_band = nullptr;
+
 }

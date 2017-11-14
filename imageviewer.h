@@ -15,6 +15,7 @@
 #include <QImage>
 #include <QScrollArea>
 
+#include "image.h"
 
 namespace Ui {
 class ImageViewer;
@@ -32,6 +33,13 @@ public:
     explicit ImageViewer(QWidget *parent = 0);
     ~ImageViewer();
 
+    enum Mode {
+        CROP,
+        ROTATE,
+        ZOOM_OUT,
+        ZOOM_IN,
+        NO_MODE
+    };
 
 private slots:
 
@@ -44,12 +52,14 @@ private slots:
     void on_actionrotate_triggered();
     void on_rotateSlider_valueChanged(int value);
     void load_image();
+    void updatePixmap();
     void on_actioncrop_triggered();
 
 private:
      Ui::ImageViewer *ui;
-     QImage image;
-     QImage default_image;
+     Image* image;
+     QPixmap pixmap;
+     Mode mode;
 };
 
 #endif // IMAGEVIEWER_H
