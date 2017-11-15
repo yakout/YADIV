@@ -52,7 +52,7 @@ void ImageViewer::updatePixmap() {
     pixmap = QPixmap::fromImage(*image->getQImage());
 
     pixmap = pixmap.transformed(rm, Qt::SmoothTransformation);
-    if (image->getCropArea().width() != 0 && mode == CROP) {
+    if (image->getCropArea().width() > 5 && image->getCropArea().height() > 5 && mode == CROP) {
         pixmap = pixmap.copy(image->getCropArea().x(),
                              image->getCropArea().y(),
                              image->getCropArea().width(),
@@ -87,8 +87,8 @@ void ImageViewer::on_actionopen_triggered()
         image->setOriginalQImage(image->getQImage()->copy());
         this->load_image();
     } else {
-        QMessageBox::about(this, tr("Error Loading Image"),
-                   tr("<p>Image corrupted or unsupported format</p>"));
+//        QMessageBox::about(this, tr("Error Loading Image"),
+//                   tr("<p>Image corrupted or unsupported format</p>"));
     }
 }
 

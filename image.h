@@ -7,6 +7,7 @@
 #include <QFile>
 #include <QIODevice>
 #include <QPixmap>
+#include <QDebug>
 
 class Image
 {
