@@ -153,6 +153,7 @@ void ImageViewer::on_actionZoom_Out_triggered()
     if (ui->graphicsView->get_selected()->width() != 0) {
         ui->graphicsView->centerOn(ui->graphicsView->get_selected()->center());
         ui->graphicsView->unselect();
+        scale_ = 0.7;
     }
     ui->graphicsView->scale(scale_, scale_);
 }
