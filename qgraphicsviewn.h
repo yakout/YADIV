@@ -31,6 +31,7 @@ protected slots:
     void mousePressEvent(QMouseEvent * event);
     void mouseReleaseEvent(QMouseEvent * event);
     void mouseMoveEvent(QMouseEvent * event);
+    void wheelEvent(QWheelEvent *e);
 };
 
 #endif // QGRAPHICSVIEWN_H

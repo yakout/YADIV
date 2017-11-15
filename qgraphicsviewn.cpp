@@ -59,6 +59,14 @@ void QGraphicsViewn::mouseMoveEvent(QMouseEvent * event) {
     area_selected();
 }
 
+void QGraphicsViewn::wheelEvent(QWheelEvent *e) {
+    if(e->delta() > 0){
+        scale(1.05, 1.05);
+    } else {
+        scale(0.97, 0.97);
+    }
+}
+
 void QGraphicsViewn::select() {
     if (!rubber_band)
            rubber_band = new QRubberBand(QRubberBand::Rectangle, this);

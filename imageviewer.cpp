@@ -123,16 +123,38 @@ void ImageViewer::on_actionReset_triggered()
 void ImageViewer::on_actionZoom_In_triggered()
 {
     mode = ZOOM_IN;
-    ui->graphicsView->unselect();
-    ui->graphicsView->scale(2,2);   //zoom in
+    double scale_ = 2;
+    if (ui->graphicsView->get_selected()->width() != 0) {
+        QPointF tempP = ui->graphicsView->mapToScene(ui->graphicsView->get_selected()->x(),
+                                               ui->graphicsView->get_selected()->y());
+        ui->graphicsView->fitInView(tempP.x(),
+                                    tempP.y(),
+                                    ui->graphicsView->get_selected()->width(),
+                                    ui->graphicsView->get_selected()->height(),
+                                    Qt::KeepAspectRatio);
 
+//        ui->graphicsView->setSceneRect(tempP.x(),
+//                                       tempP.y(),
+//                                       ui->graphicsView->get_selected()->width(),
+//                                       ui->graphicsView->get_selected()->height());
+
+        ui->graphicsView->centerOn(ui->graphicsView->mapToScene(ui->graphicsView->get_selected()->center()));
+
+        ui->graphicsView->unselect();
+    } else {
+        ui->graphicsView->scale(scale_ , scale_);
+    }
 }
 
 void ImageViewer::on_actionZoom_Out_triggered()
 {
     mode = ZOOM_OUT;
-    ui->graphicsView->unselect();
-    ui->graphicsView->scale(.5,.5); //zoom out
+    double scale_  = 0.5;
+    if (ui->graphicsView->get_selected()->width() != 0) {
+        ui->graphicsView->centerOn(ui->graphicsView->get_selected()->center());
+        ui->graphicsView->unselect();
+    }
+    ui->graphicsView->scale(scale_, scale_);
 }
 
 void ImageViewer::on_actionabout_triggered()
