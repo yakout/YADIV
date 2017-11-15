@@ -16,9 +16,13 @@ class QGraphicsViewn : public QGraphicsView
 private:
     QPoint press,release;
     QRubberBand *rubber_band;
+    bool zoomFlag = false;
+
 public:
     explicit QGraphicsViewn(QWidget *parent = nullptr);
     QRect* get_selected();
+    void setZoomFlag(bool);
+    bool getZoomFlag();
 
 signals:
     void area_selected();

@@ -55,6 +55,8 @@ private slots:
     void updatePixmap();
     void on_actioncrop_triggered();
 
+    void on_actionselect_triggered();
+
 private:
      Ui::ImageViewer *ui;
      Image* image;

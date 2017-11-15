@@ -60,6 +60,11 @@ void QGraphicsViewn::mouseMoveEvent(QMouseEvent * event) {
 }
 
 void QGraphicsViewn::wheelEvent(QWheelEvent *e) {
+    if (!zoomFlag) {
+        QGraphicsView::wheelEvent(e);
+        return;
+    }
+
     if(e->delta() > 0){
         scale(1.05, 1.05);
     } else {
@@ -85,5 +90,14 @@ void QGraphicsViewn::unselect() {
     release.setY(0);
 
     rubber_band = nullptr;
+}
 
+bool QGraphicsViewn::getZoomFlag()
+{
+    return zoomFlag;
+}
+
+void QGraphicsViewn::setZoomFlag(bool flag)
+{
+    this->zoomFlag = flag;
 }

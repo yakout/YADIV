@@ -205,3 +205,8 @@ void ImageViewer::on_actioncrop_triggered()
     ui->angleSpinBox->setVisible(false);
     ui->graphicsView->unselect();
 }
+
+void ImageViewer::on_actionselect_triggered()
+{
+    ui->graphicsView->setZoomFlag(!ui->graphicsView->getZoomFlag());
+}
